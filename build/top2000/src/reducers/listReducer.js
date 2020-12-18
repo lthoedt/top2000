@@ -2,6 +2,7 @@ import { Actions } from "framework7-react";
 
 const initialLoginState = {
 	status: "unloaded",
+	loadedSongs: 10,
 	songs: []
 }
 
@@ -15,6 +16,10 @@ const ListReducer = ( state = initialLoginState, action ) => {
 		
 		case "LIST_LOADED":
 		return { ...state, songs: action.songs};
+
+		case "LIST_LOAD_MORE":
+			const loadedSongs = state.loadedSongs + 10;
+		return { ...state, loadedSongs: loadedSongs }
 
         default:
         return state;

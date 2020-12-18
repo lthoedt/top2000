@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Page, Navbar } from 'framework7-react';
+import { Navbar } from 'framework7-react';
 
 import SongList from '../components/SongList'
 
@@ -14,14 +14,30 @@ export default () => {
 
 	const list = useSelector(state => state.list);
 
-	if (list.status==="unloaded") dispatch(songsGet());
+	const loadSongs = songsGet();
+
+	if (list.status==="unloaded") dispatch(loadSongs);
+
+	const LoadMoreSongs = (e) => {
+		const node = e.target; // gets the html element
+		const treshhold = 100;
+		const isBottom = node.scrollTop + node.offsetHeight >= node.scrollHeight-treshhold;
+		
+		if (isBottom) {
+			if (list.status==="loaded") {
+				dispatch({type: "LIST_LOAD_MORE"});
+				dispatch(loadSongs);
+			}
+		}
+	}
 
 	return (
-		<Page name="List">
+		<div className="page" data-page="List">
 			<Navbar title={`De lijst van ${new Date().getFullYear()}`} />
 
-			<SongList songs = {list.songs} />
-
-		</Page>
+			<div className="page-content infinite-scroll-content" onScroll={LoadMoreSongs}>
+				<SongList songs = {list.songs} />
+			</div>
+		</div>
 	);
 }
