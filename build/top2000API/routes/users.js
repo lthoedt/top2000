@@ -21,11 +21,11 @@ router.post('/', async (req, res) => {
 
 	try {
 
-		if (!emailIsValid(email)) return sendStatus(res, 400, {type: "email", message: "Not a valid email"});
+		if (!emailIsValid(email)) return sendStatus(res, 400, {for: "email", message: "Het lijkt erop dat dit geen valid email is."});
 
-		if (!usernameIsValid(username)) return sendStatus(res, 400, {type: "username", message: "Not a valid username"});
+		if (!usernameIsValid(username)) return sendStatus(res, 400, {for: "username", message: "Gebruikersnaam mag alleen letters en cijfers bevatten."});
 
-		if (await accountExists(username)) return sendStatus(res, 409);
+		if (await accountExists(username)) return sendStatus(res, 400, {for: "username", message: "Gebruikersnaam bestaat al."});
 
 		new Users({
 			username: username,

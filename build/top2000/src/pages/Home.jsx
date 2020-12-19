@@ -1,13 +1,8 @@
 import React from 'react';
 
-import List from './List';
-import Playingpage from './Playing';
-import Create from './Create';
-
 import Tabbar from '../components/Tabbar';
 
 import { Page, Toolbar, Tabs, Tab } from 'framework7-react';
-import Reminders from './Reminders';
 
 export default function Home() {
 	return (
