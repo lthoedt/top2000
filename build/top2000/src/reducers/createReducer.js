@@ -33,7 +33,7 @@ const CreateReducer = ( state = initialLoginState, action ) => {
 		case "CREATE_MESSAGE_SET":
 		return { ...state, message: action.message }
 
-		case "CREATE_SUBMIT":
+		case "CREATE_SUCCESSFUL":
 		return { ...state, username: "", email: "", password: "", password2: ""}
 
         default:

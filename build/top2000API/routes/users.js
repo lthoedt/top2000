@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 
 const {
 	Users
@@ -44,7 +45,7 @@ router.get('/:USERNAME', async (req, res) => {
 	const username = req.params.USERNAME;
 
 	try {
-		const user = (await Users.findOne({username: username}, {_id: 0, __v: 0, password: 0}));
+		const user = await userGet(username);
 		res.status(200).json({
 			success: true,
 			data: user
@@ -53,6 +54,38 @@ router.get('/:USERNAME', async (req, res) => {
 		sendStatus(res, 500, err);
 	}
 })
+
+router.get('/:USERNAME/login', async (req, res) => {
+	const username = req.params.USERNAME;
+	const password = req.query.password;
+
+	try {
+		const user = await Users.findOne({username: username}, {_id: 0, __v: 0});
+
+		if (bcrypt.compareSync(password, user.password)) {
+			res.status(200).json({
+				success: true,
+				data: user
+			})
+		} else {
+			res.status(200).json({
+				success: false,
+				message: {
+					for: 'password',
+					message: 'Jouw wachtwoord is fout'
+				}
+			})
+		}
+	} catch (err) {
+		sendStatus(res, 500);
+	}
+
+})
+
+const userGet = async (username) => {
+	return (await Users.findOne({username: username}, {_id: 0, __v: 0, password: 0}));
+
+}
 
 const accountExists = async (username) => {
 	return (await Users.countDocuments({

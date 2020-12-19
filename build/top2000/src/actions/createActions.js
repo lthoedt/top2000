@@ -21,7 +21,7 @@ export const createAction = () => {
 		try {
 			const response = (await axios.post(`${URIs.api}/users?username=${username}&email=${email}&password=${passwordHash}`)).data;
 			if (response.success) {
-				dispatch({type: "CREATE_SUBMIT"})
+				dispatch({type: "CREATE_SUCCESSFUL"})
 				dispatch({type: "CREATE_MESSAGE_SET", message: {for: '', message: ''}});
 			} else {
 				dispatch({type: "CREATE_MESSAGE_SET", message: response.message});
