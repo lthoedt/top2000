@@ -4,7 +4,7 @@ const URIs = require('../URIs');
 export const playingSongGet = () => {
 	return async (dispatch) => {
 		dispatch({
-			type: "LIST_STATUS_SET",
+			type: "PLAYING_STATUS_SET",
 			status: "loading"
 		});
 		try {
