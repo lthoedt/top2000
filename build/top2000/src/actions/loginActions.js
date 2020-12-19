@@ -4,6 +4,8 @@ const URIs = require('../URIs');
 export const loginAction = () => {
 	return async (dispatch, getState) => {
 
+		dispatch({type: "LOGIN_STATUS_SET", status: "loading"})
+
 		const state = getState().login;
 
 		const {username} = state;
@@ -21,6 +23,6 @@ export const loginAction = () => {
 			dispatch({type: "LOGIN_MESSAGE_SET", message: err.response.data.message});
 		}
 
-
+		dispatch({type: "LOGIN_STATUS_SET", status: "loaded"})
 	}
 }

@@ -6,6 +6,8 @@ const saltRounds = 12;
 export const createAction = () => {
 	return async (dispatch, getState) => {
 
+		dispatch({type: "CREATE_STATUS_SET", status: "loading"})
+
 		const state = getState().create;
 
 		const {username} = state;
@@ -29,6 +31,8 @@ export const createAction = () => {
 		} catch (err) {
 			dispatch({type: "CREATE_MESSAGE_SET", message: err.response.data.message});
 		}
+
+		dispatch({type: "CREATE_STATUS_SET", status: "loaded"})
 
 
 	}

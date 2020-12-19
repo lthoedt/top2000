@@ -34,6 +34,7 @@ const CreateReducer = ( state = initialLoginState, action ) => {
 		return { ...state, message: action.message }
 
 		case "CREATE_SUCCESSFUL":
+			window.location.href = '/reminders';
 		return { ...state, username: "", email: "", password: "", password2: ""}
 
         default:
