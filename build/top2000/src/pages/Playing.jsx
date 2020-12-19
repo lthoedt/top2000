@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ReactAudioPlayer from 'react-audio-player';
+import ReactPlayer from 'react-player'
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -14,6 +15,14 @@ export default function Playing() {
 	const playing = useSelector(state => state.playing);
 
 	if (playing.status === "unloaded") dispatch(playingSongGet());
+
+	if (playing.refreshed === false) {
+		setTimeout(() => {
+			dispatch(playingSongGet());
+			dispatch({type: "PLAYING_REFRESHED_SET", refreshed: false})
+		}, 10000);
+		dispatch({type: "PLAYING_REFRESHED_SET", refreshed: true})
+	}
 
 	return (
 		<div className="page" data-page="Playing">
@@ -33,6 +42,14 @@ export default function Playing() {
 				<div className = "centerContent" style={{flexDirection: 'column'}}>
 					<span className = "title">{playing.song.title}</span>
 					<span className = "subTitle">{playing.song.artist}</span>
+				</div>
+
+				<div className="centerContent">
+					<ReactPlayer
+						url='https://nl-ams-p5-am5.cdn.streamgate.nl/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MDg0NjUyMjQsInVyaSI6IlwvbGl2ZVwvbnBvXC91XC9ucG9cL25vZHJtXC9kYXNoX3VuZW5jcnlwdGVkXC9ucG8tdnNyLTJcLzBcLzBcLzBcL25wby12c3ItMi5pc21sIiwidmlld2VyIjoiYzVlYjM0OTlhNWU5MDNkYWNjNjIzNGZjNjFkM2RjYzIzMjIwZGZiMCIsInJpZCI6IjYxYWQyMTcifQ.KVI1wXAYMlTpH0Of5UVYmN7Qp9SWGnHWrWXTbw4CUV0/live/npo/u/npo/nodrm/dash_unencrypted/npo-vsr-2/0/0/0/npo-vsr-2.isml/stream.mpd' 
+						controls
+						playing={false}
+					/>
 				</div>
 
 			</div>

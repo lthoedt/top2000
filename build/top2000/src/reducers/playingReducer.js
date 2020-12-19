@@ -6,7 +6,12 @@ const initialLoginState = {
         "title": "",
         "artist": "",
         "image": ""
-    }
+	},
+	stream: {
+		src: "",
+		type: ""
+	},
+	refreshed: false
 }
 
 const PlayingReducer = ( state = initialLoginState, action ) => {
@@ -18,7 +23,10 @@ const PlayingReducer = ( state = initialLoginState, action ) => {
 		return { ...state, status: action.status };
 		
 		case "PLAYING_LOADED":
-		return { ...state, song: action.song};
+		return { ...state, song: action.song, stream: action.stream};
+
+		case "PLAYING_REFRESHED_SET":
+		return { ...state, refreshed: action.refreshed }
 
         default:
         return state;

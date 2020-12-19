@@ -9,10 +9,12 @@ export const playingSongGet = () => {
 		});
 		try {
 			const song = (await axios.get(`${URIs.api}/songs/playing`));
+			const songStream = (await axios.get(`${URIs.api}/songs/playing/stream`));
 
 			dispatch({
 				type: "PLAYING_LOADED",
 				song: song.data.song,
+				stream: songStream.data.stream
 			});
 			dispatch({
 				type: "PLAYING_STATUS_SET",

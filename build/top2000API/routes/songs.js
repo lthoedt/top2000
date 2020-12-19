@@ -48,4 +48,18 @@ router.get('/playing', async (req, res) => {
 	}
 })
 
+router.get('/playing/stream', async (req, res) => {
+	try {
+		const streamInfo = (await axios.get("https://start-player.npo.nl/video/LI_RADIO2_300879/streams?profile=dash-widevine&quality=npo&tokenId=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VFbmNyeXB0aW9uIjoiZHJtIiwiZWxlbWVudElkIjoibnBvXzVmZGRlNzg0ODBjMGIiLCJhdXRvcGxheSI6IjAiLCJzaGFyZSI6IjAiLCJoYXNBZENvbnNlbnQiOiIwIiwic21hcnR0YWciOnsic2l0ZUlkIjoiMzMifSwiaWF0IjoxNjA4Mzc4MjQ0LCJuYmYiOjE2MDgzNzgyNDQsImV4cCI6MTYwODQwNzA0NCwiY29uc3VtZXJJZCI6IjQ1MGM5NjQ5LWMxNzktNGZmZi04NTM3LTBjNGMzYTcyYTljMyIsIm1lZGlhSWQiOiJMSV9SQURJTzJfMzAwODc5IiwiaXNQbGF5bGlzdCI6ZmFsc2UsInJlZmVycmVyVXJsIjpudWxsLCJza2lwQ2F0YWxvZyI6MCwibm9BZHMiOjAsInJlY29tbWVuZGF0aW9ucyI6MSwiaXNzIjoiZXlKcGRpSTZJbk5qYUZsSGFIRjFkWG9yTUVkTlVYaFNhMFZYYm5jOVBTSXNJblpoYkhWbElqb2lNakpFYlVGa01IRjBhSGhJTTFabVZEQXdkVmRhVTFGcFpUSTRibEJDVm5SSWRHVmNMMlZxYVRFeVR6RXlUeXRJVldSQlpXYzBkVFZzT0UxTE1FMVNaV2NpTENKdFlXTWlPaUprTnpjek9EWmpNRFV4WWpFeU1HWXpZalF6TkRZMU5XSXdaRFJpWWpOak1XTm1ZMkUzTm1FNU56TTFOREprTTJJMk1UUXpaVGd3TkRoa1ltUTBPRGxtSW4wPSJ9.dfLZVBIVv2IRpKqfJFoq4ZUX9zLBFDY2FHqjJEw_eBE&streamType=liveradio&mobile=0&ios=0&isChromecast=0&isYospace=0")).data
+
+		res.status(200).json({
+			success: true,
+			stream: streamInfo.stream,
+			metadata: streamInfo.metadata
+		})
+	} catch (err) {
+		sendStatus(res, 500, err);
+	}
+})
+
 module.exports = router;
