@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Icon } from 'framework7-react';
 
-export default props => {
+export default function SongPos(props) {
 	const song = props.song;
 
 	let icon = {};

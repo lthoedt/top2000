@@ -17,7 +17,7 @@ const f7params = {
 	}]
 };
 
-export default () => {
+export default function app() {
 	return (
 		<App params={f7params} className="theme-dark">
 			<View main url="/" />

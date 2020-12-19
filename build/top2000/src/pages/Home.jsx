@@ -1,11 +1,13 @@
 import React from 'react';
 
 import List from './List';
+import Playingpage from './Playing';
+
 import Tabbar from '../components/Tabbar';
 
-import { Page, Navbar, Toolbar, Link, Tabs, Tab, Block } from 'framework7-react';
+import { Page, Toolbar, Tabs, Tab, Block } from 'framework7-react';
 
-export default () => {
+export default function Home() {
 	return (
 		<Page name="home">
 			<Toolbar tabbar labels bottom>
@@ -16,16 +18,13 @@ export default () => {
 					<List />
 				</Tab>
 				<Tab id="tab-2" className="page-content">
-					<Block>
-						<p>Tab 1 content</p>
-						...
-					</Block>
+					<Playingpage />
 				</Tab>
 				<Tab id="tab-3" className="page-content">
 					<Block>
 						<p>Tab 3 content</p>
-						...
-					</Block>
+					...
+				</Block>
 				</Tab>
 			</Tabs>
 		</Page>

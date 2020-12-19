@@ -1,17 +1,34 @@
 import React from 'react';
 
-import { List, Preloader } from 'framework7-react';
+import { Icon, List, Preloader } from 'framework7-react';
 
 import SongListItem from '../components/SongListItem';
 
-export default props => {
+import { useSelector } from 'react-redux';
+
+export default function SongList(props) {
+
+	const loading = useSelector(state => state.list.status);
+	const queryCount = useSelector(state => state.list.queryCount);
+
 	const songComponents = props.songs.map(song => {
 		return <SongListItem key={song.aid} song={song} />;
 	})
+
 	return (
 		<List mediaList>
 			{songComponents}
-			<div style={{ textAlign: "center", marginTop: "3vh" }}><Preloader style={{ textAlign: "center" }} size={42}></Preloader></div>
+			{(loading === "loading" &&
+				<div style={{ textAlign: "center", marginTop: "3vh" }}>
+					<Preloader style={{ textAlign: "center" }} size={42}></Preloader>
+				</div>
+			)}
+			{(queryCount===0 &&
+				<div style={{textAlign: "center", marginTop: '10vh'}} >
+					<h3>Er zijn geen resultaten.</h3>
+					<Icon f7="xmark_circle_fill"></Icon>
+				</div>
+			)}
 		</List>
 	);
 }

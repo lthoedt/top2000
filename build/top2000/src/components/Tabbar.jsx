@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Toolbar, Link } from 'framework7-react';
 
-export default () => {
+export default function Tabbar() {
 	return (
 		<Toolbar tabbar labels bottom>
 			<Link tabLink="#tab-1" iconF7="list_number" text="Lijst" tabLinkActive ></Link>
