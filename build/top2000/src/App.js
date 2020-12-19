@@ -47,6 +47,13 @@ const f7params = {
 				component: Create
 			}
 		]
+	},
+	{
+		path: '/logout',
+		redirect: function (route, resolve, reject) {
+			sessionStorage.clear()
+			resolve('/');
+		}
 	}]
 };
 
