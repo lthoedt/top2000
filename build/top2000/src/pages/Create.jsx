@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useDispatch } from 'react-redux';
 
-import { Page, LoginScreenTitle, List, ListInput, ListButton, BlockFooter } from 'framework7-react';
+import { Page, LoginScreenTitle, List, ListInput, ListButton } from 'framework7-react';
 
 export default function Create() {
 
@@ -29,8 +29,7 @@ export default function Create() {
 				/>
 			</List>
 			<List>
-				<ListButton>Log In</ListButton>
-				<BlockFooter>Log in om reminders te kunnen instellen!</BlockFooter>
+				<ListButton>Creeër</ListButton>
 			</List>
 		</Page>
 	);
