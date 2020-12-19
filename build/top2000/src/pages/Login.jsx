@@ -16,7 +16,7 @@ export default function Create() {
 	return (
 		<Page noToolbar noNavbar noSwipeback loginScreen>
 			{
-				(state.status == "loading")
+				(state.status === "loading")
 					? <PreloaderModal />
 					:
 					<div>
