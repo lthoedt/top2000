@@ -2,10 +2,12 @@ import React from 'react';
 
 import List from './List';
 import Playingpage from './Playing';
+import Create from './Create';
 
 import Tabbar from '../components/Tabbar';
 
-import { Page, Toolbar, Tabs, Tab, Block } from 'framework7-react';
+import { Page, Toolbar, Tabs, Tab } from 'framework7-react';
+import Reminders from './Reminders';
 
 export default function Home() {
 	return (
@@ -21,10 +23,10 @@ export default function Home() {
 					<Playingpage />
 				</Tab>
 				<Tab id="tab-3" className="page-content">
-					<Block>
-						<p>Tab 3 content</p>
-					...
-				</Block>
+					<Reminders />
+				</Tab>
+				<Tab id="tab-4" className="page-content">
+					<Create />
 				</Tab>
 			</Tabs>
 		</Page>
