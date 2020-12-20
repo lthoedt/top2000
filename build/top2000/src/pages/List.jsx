@@ -48,7 +48,7 @@ export default function List() {
 						<Searchbar style={{ width: '100%' }} onInput={searchSongs} />
 					</Subnavbar>
 				</Navbar>
-				<SongList songs={list.songs} />
+				<SongList songs={list.songs} reminders={list.reminders} />
 			</div>
 		</div>
 	);

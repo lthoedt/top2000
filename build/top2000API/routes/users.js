@@ -13,6 +13,7 @@ const {
 } = require('./restFunctions');
 
 const URIs = require('./URIs');
+const { json } = require('body-parser');
 
 // get songs
 router.post('/', async (req, res) => {
@@ -79,7 +80,85 @@ router.get('/:USERNAME/login', async (req, res) => {
 	} catch (err) {
 		sendStatus(res, 500);
 	}
+})
 
+router.post('/:USERNAME/reminders', async (req, res) => {
+	const username = req.params.USERNAME;
+
+	let reminders = req.body;
+
+	try {
+		reminders = reminders.map(song=>{
+			return song.id;
+		})
+		const result = (await Users.updateOne({username: username}, {
+			$addToSet: {reminders: reminders}
+		}))
+
+		sendStatus(res, 200);
+	} catch (err) {
+		sendStatus(res, 500, err);
+	}
+})
+
+router.delete('/:USERNAME/reminders', async (req, res) => {
+	const username = req.params.USERNAME;
+
+	let reminders = req.body;
+
+	console.log(reminders);
+
+	try {
+		reminders = reminders.map(song=>{
+			return song.id;
+		})
+
+		const result = (await Users.updateOne({username: username}, {
+			$pull: {reminders: {$in: reminders}}
+		}))
+
+		sendStatus(res, 200);
+	} catch (err) {
+		sendStatus(res, 500, err);
+	}
+})
+
+router.get('/:USERNAME/reminders', async (req, res) => {
+	const username = req.params.USERNAME;
+	try {
+		const user = await userGet(username);
+
+		res.status(200).json({
+			success: true,
+			data: user.reminders
+		})
+	} catch (err) {
+		sendStatus(res, 500, err);
+	}
+})
+
+router.get('/:USERNAME/reminders/songs', async (req, res) => {
+	const username = req.params.USERNAME;
+	try {
+		const allSongs = (await axios.get(URIs.songs())).data.data[0];
+		const reminders = (await userGet(username)).reminders;
+
+		const songs = allSongs.filter(song => {
+			for ( const reminder of reminders ) {
+				if (reminder===song.aid) {
+					return true;
+				}
+			}
+			return false;
+		})
+
+		res.status(200).json({
+			success: true,
+			data: songs
+		})
+	} catch (err) {
+		sendStatus(res, 500, err);
+	}
 })
 
 const userGet = async (username) => {

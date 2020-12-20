@@ -1,9 +1,11 @@
 import React from "react";
 
-import { Icon, ListItem } from 'framework7-react';
+import { Icon, ListItem, Chip } from 'framework7-react';
 import SongPos from './SongPos';
 
 import { useDispatch, useSelector } from 'react-redux';
+
+import { remindersAdd, remindersRemove } from '../actions/remindersActions';
 
 export default function SongListItem(props) {
 	const song = props.song;
@@ -20,6 +22,10 @@ export default function SongListItem(props) {
 		dispatch({ type: "SONG_CURRENTLYPLAYING", currentlyPlaying: (currentlyPlaying === url) ? null : url })
 
 		dispatch({ type: "SONG_AUDIO_TOGGLE", play: currentlyPlaying !== url })
+	}
+
+	const removeReminder = (id) => {
+
 	}
 
 	return (
@@ -42,6 +48,16 @@ export default function SongListItem(props) {
 						: <Icon f7="play_circle" style={{ width: "80px", height: "80px", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "3em", position: "absolute", transform: "translateY(-50%)", top: "50%" }}></Icon>
 					}
 				</div>
+				{(props.reminder === true)
+					?
+					<Chip text="Reminder" color="blue" onClick={() => dispatch(remindersRemove(song.aid))} outline deleteable>
+						<Icon slot="media" f7="checkmark_alt"></Icon>
+					</Chip>
+					:
+					<Chip text="Reminder" color="green" onClick={() =>  dispatch(remindersAdd(song.aid))} outline>
+						<Icon slot="media" f7="plus"></Icon>
+					</Chip>
+				}
 			</ListItem>
 		</ul>
 	);

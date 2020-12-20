@@ -12,7 +12,14 @@ export default function SongList(props) {
 	const queryCount = useSelector(state => state.list.queryCount);
 
 	const songComponents = props.songs.map(song => {
-		return <SongListItem key={song.aid} song={song} />;
+		let isReminder = false;
+		for (const reminder of props.reminders) {
+			if (reminder.aid===song.aid) {
+				isReminder=true;
+				break;
+			}
+		}
+		return <SongListItem key={song.aid} song={song} reminder={isReminder} />;
 	})
 
 	return (

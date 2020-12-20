@@ -20,7 +20,6 @@ router.get('/', async (req, res) => {
 	try {
 		let songs = (await axios.get(URIs.songs())).data.data[0];
 
-
 		if (search !== undefined) {
 			songs = songs.filter((song) => {
 				return (song.s.toLowerCase()).includes(search) || (song.a.toLowerCase()).includes(search) || song.pos == search;

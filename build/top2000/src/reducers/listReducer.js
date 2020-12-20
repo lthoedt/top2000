@@ -17,7 +17,7 @@ const ListReducer = ( state = initialLoginState, action ) => {
 		return { ...state, status: action.status };
 		
 		case "LIST_LOADED":
-		return { ...state, songs: action.songs, queryCount: action.queryCount};
+		return { ...state, songs: action.songs, reminders: action.reminders, queryCount: action.queryCount};
 
 		case "LIST_LOAD_MORE":
 			const loadedSongs = state.loadedSongs + 10;
