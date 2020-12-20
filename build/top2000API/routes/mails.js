@@ -15,11 +15,9 @@ const readFile = promisify(fs.readFile);
 const path = require('path');
 
 const {
-	Users
-} = require('../database/db');
-
-const {
-	sendStatus
+	sendStatus,
+	getUsers,
+	upcomingSongs
 } = require('./restFunctions');
 
 const URIs = require('./URIs');
@@ -41,46 +39,68 @@ router.get('/', async (req, res) => {
 
 router.get('/send', async (req, res) => {
 	try {
-		let emails = await getUsers();
+		let users = await getUsers();
 
-		let transporter = nodemailer.createTransport({
-			name: 'reminder@top2000.nl',
-			host: "mail.dutchta.com",
-			port: 465,
-			secure: true, // true for 465, false for other ports
-			auth: {
-				user: secrets.mail.username,
-				pass: secrets.mail.password,
-			},
-		});
+		const upcoming = await upcomingSongs();
 
-		let info = await transporter.sendMail({
-			from: 'reminder@top2000.nl', // sender address
-			to: "lthoedt@gmail.com", // list of receivers
-			subject: "Reminder", // Subject line
-			text: "Hello world?", // plain text body
-			html: await readFile(path.join('./mail.php'), 'utf8'), // html body
-		});
+		const toSend = [];
 
-		console.log(info)
+		users.forEach( user => {
+			for ( const reminder of user.reminders ) {
+				for ( const upc of upcoming ) {
+					if (reminder == upc.aid) {
+						if (toSend[upc.aid]===undefined) toSend[upc.aid] = {song: null, users: []};
+						toSend[upc.aid].song = upc;
+						toSend[upc.aid].users.push(user);
+						break;
+					}
+				}
+			}
+		})
+
+		if (toSend.length!==0) {
+			toSend.forEach(song => {
+				sendEmail(song.users, song.song);
+			})
+		}
 
 		res.status(200).json({
 			success: true,
-			data: emails
 		})
 
-
 	} catch (err) {
-		console.log(err)
 		sendStatus(res, 500, err);
 	}
 })
 
-const getUsers = () => {
-	return Users.find({}, {
-		_id: 0,
-		username: 1,
-		email: 1
+const sendEmail = async (to, song) => {
+	let transporter = nodemailer.createTransport({
+		name: 'reminder@top2000.nl',
+		host: "mail.dutchta.com",
+		port: 465,
+		secure: true, // true for 465, false for other ports
+		auth: {
+			user: secrets.mail.username,
+			pass: secrets.mail.password,
+		},
+	});
+
+	let htmlEmail = await readFile(path.join('./mail.html'), 'utf8');
+
+	const songTitle = song.s;
+	const songArtist = song.a;
+	const songCover = song.img;
+
+	htmlEmail = htmlEmail.replace(/SONG_TITLE/gi, songTitle)
+	htmlEmail = htmlEmail.replace(/SONG_ARTIST/gi, songArtist)
+	htmlEmail = htmlEmail.replace(/SONG_COVER/gi, songCover)
+	
+	await transporter.sendMail({
+		from: 'reminder@top2000.nl', // sender address
+		to: to.map(user=>user.email), // list of receivers
+		subject: `${songTitle} - ${songArtist} gaat zo beginnen!`, // Subject line
+		text: `${songTitle} - ${songArtist} gaat zo beginnen!`, // plain text body
+		html: htmlEmail, // html body
 	});
 }
 

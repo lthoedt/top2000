@@ -12,12 +12,19 @@ export const songsGet = () => {
 
 		try {
 			const songs = (await axios.get(`${URIs.api}/songs?limit=${state.list.loadedSongs}&search=${state.list.search}`));
-			const reminders = (await axios.get(`${URIs.api}users/${sessionStorage.username}/reminders/songs`)).data;
+
+			let reminders = [];
+
+			try {
+				reminders = (await axios.get(`${URIs.api}users/${sessionStorage.username}/reminders/songs`)).data.data;
+			} catch (err) {
+
+			}
 
 			dispatch({
 				type: "LIST_LOADED",
 				songs: songs.data.songs,
-				reminders: reminders.data,
+				reminders: reminders,
 				queryCount: songs.data.queryCount
 			});
 			dispatch({
@@ -25,7 +32,6 @@ export const songsGet = () => {
 				status: "loaded"
 			})
 		} catch (err) {
-			console.log(err);
 			dispatch({
 				type: "LIST_STATUS_SET",
 				status: "failed"

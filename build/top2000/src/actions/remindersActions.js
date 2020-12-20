@@ -41,13 +41,13 @@ export const remindersAdd = (reminder) => {
 		})
 
 		try {
-			const songs = (await axios({
+			await axios({
 				method: 'post',
 				url: `${URIs.api}users/${sessionStorage.username}/reminders`,
 				data: [{
 					id: reminder
 				}]
-			})).data;
+			});
 
 			dispatch({
 				type: "LIST_STATUS_SET",
@@ -58,10 +58,6 @@ export const remindersAdd = (reminder) => {
 				status: "unloaded"
 			})
 		} catch (err) {
-			dispatch({
-				type: "LIST_STATUS_SET",
-				status: "failed"
-			});
 			dispatch({
 				type: "REMINDERS_STATUS_SET",
 				status: "failed"
@@ -82,13 +78,13 @@ export const remindersRemove = (reminder) => {
 		})
 
 		try {
-			const songs = (await axios({
+			await axios({
 				method: 'delete',
 				url: `${URIs.api}users/${sessionStorage.username}/reminders`,
 				data: [{
 					id: reminder
 				}]
-			})).data;
+			})
 
 			dispatch({
 				type: "LIST_STATUS_SET",
@@ -99,10 +95,6 @@ export const remindersRemove = (reminder) => {
 				status: "unloaded"
 			})
 		} catch (err) {
-			dispatch({
-				type: "LIST_STATUS_SET",
-				status: "failed"
-			});
 			dispatch({
 				type: "REMINDERS_STATUS_SET",
 				status: "failed"

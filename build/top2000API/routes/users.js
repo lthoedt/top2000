@@ -9,11 +9,15 @@ const {
 const axios = require('axios').default;
 
 const {
-	sendStatus
+	sendStatus,
+	userGet,
+	accountExists,
+	emailIsValid,
+	usernameIsValid,
+	getSongs
 } = require('./restFunctions');
 
 const URIs = require('./URIs');
-const { json } = require('body-parser');
 
 // get songs
 router.post('/', async (req, res) => {
@@ -140,7 +144,7 @@ router.get('/:USERNAME/reminders', async (req, res) => {
 router.get('/:USERNAME/reminders/songs', async (req, res) => {
 	const username = req.params.USERNAME;
 	try {
-		const allSongs = (await axios.get(URIs.songs())).data.data[0];
+		const allSongs = await getSongs();
 		const reminders = (await userGet(username)).reminders;
 
 		const songs = allSongs.filter(song => {
@@ -160,24 +164,5 @@ router.get('/:USERNAME/reminders/songs', async (req, res) => {
 		sendStatus(res, 500, err);
 	}
 })
-
-const userGet = async (username) => {
-	return (await Users.findOne({username: username}, {_id: 0, __v: 0, password: 0}));
-
-}
-
-const accountExists = async (username) => {
-	return (await Users.countDocuments({
-		username: username
-	})) > 0;
-}
-
-const emailIsValid = (email) => {
-	return email.match(/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/) !== null;
-}
-
-const usernameIsValid = (username) => {
-	return username.match(/^[a-zA-Z0-9-_]*$/) !== null;
-}
 
 module.exports = router;
