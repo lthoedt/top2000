@@ -37,7 +37,20 @@ export default function List() {
 		const search = e.target.value;
 
 		dispatch({ type: "LIST_SEARCH", search: search });
-		dispatch({ type: "LIST_STATUS_SET", status: "unloaded" });
+
+		// ga pas zoeken na 500ms geen input
+		if (list.searchTimer === undefined) {
+			clearTimeout(list.searchTimer);
+			dispatch({
+				type: "LIST_SEARCH_TIMER_SET", searchTimer: setTimeout(
+					() => {
+						dispatch({ type: "LIST_STATUS_SET", status: "unloaded" });
+						dispatch({type: "LIST_SEARCH_TIMER_SET", searchTimer:undefined})
+					},
+					500
+				)
+			})
+		}
 	}
 
 	return (

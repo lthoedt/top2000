@@ -5,7 +5,8 @@ const initialLoginState = {
 	search: "",
 	queryCount: null,
 	currentlyPlaying: null,
-	audio: null
+	audio: null,
+	searchTimer: undefined
 }
 
 const ListReducer = ( state = initialLoginState, action ) => {
@@ -37,6 +38,9 @@ const ListReducer = ( state = initialLoginState, action ) => {
 			if (action.play) state.audio.play()
 			else state.audio.pause() 
 		return { ...state, audio: state.audio}
+
+		case "LIST_SEARCH_TIMER_SET":
+			return { ...state, searchTimer: action.searchTimer }
 
         default:
         return state;
