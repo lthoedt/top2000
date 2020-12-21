@@ -17,7 +17,8 @@ const path = require('path');
 const {
 	sendStatus,
 	getUsers,
-	upcomingSongs
+	upcomingSongs,
+	remindersPatch
 } = require('./restFunctions');
 
 const URIs = require('./URIs');
@@ -49,8 +50,12 @@ router.get('/send', async (req, res) => {
 			for ( const reminder of user.reminders ) {
 				for ( const upc of upcoming ) {
 					if (reminder.aid == upc.aid) {
+						// already reminded so break;
+						if (reminder.reminded===true)break;
+						// new song gets created in toSend
 						if (toSend[upc.aid]===undefined) toSend[upc.aid] = {song: null, users: []};
 						toSend[upc.aid].song = upc;
+						// push the current user into the toSend array
 						toSend[upc.aid].users.push(user);
 						break;
 					}
@@ -58,14 +63,15 @@ router.get('/send', async (req, res) => {
 			}
 		})
 
-		console.log(toSend);
-
 		if (toSend.length!==0) {
-			toSend.forEach(song => {
-				// sendEmail(song.users, song.song);
+			toSend.forEach(async song => {
+				for (const user of song.users) {
+					await remindersPatch(user.username, upcoming);
+				}
+				sendEmail(song.users, song.song);
 			})
 		}
-
+		
 		res.status(200).json({
 			success: true,
 		})

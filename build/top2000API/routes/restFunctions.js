@@ -105,6 +105,28 @@ const upcomingSongs = async () => {
 	return upcoming;
 }
 
+const remindersPatch = async (username, reminders) => {
+	reminders = reminders.map(song=>{
+		return song.aid;
+	})
+
+	const user = await userGet(username);
+
+	const newReminders = user.reminders.map( rem => {
+		for ( const toChange of reminders) {
+			if (rem.aid===toChange) {
+				rem.reminded = true;
+				break;
+			}
+		}
+		return rem;
+	})
+
+	const result = (await Users.updateOne({username: username}, {
+		reminders: newReminders
+	}))
+}
+
 module.exports = {
 	sendStatus,
 	getUsers,
@@ -114,5 +136,6 @@ module.exports = {
 	emailIsValid,
 	usernameIsValid,
 	currentSong,
-	upcomingSongs
+	upcomingSongs,
+	remindersPatch
 }

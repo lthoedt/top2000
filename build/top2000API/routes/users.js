@@ -14,7 +14,8 @@ const {
 	accountExists,
 	emailIsValid,
 	usernameIsValid,
-	getSongs
+	getSongs,
+	remindersPatch
 } = require('./restFunctions');
 
 const URIs = require('./URIs');
@@ -145,6 +146,20 @@ router.get('/:USERNAME/reminders', async (req, res) => {
 			success: true,
 			data: user.reminders
 		})
+	} catch (err) {
+		sendStatus(res, 500, err);
+	}
+})
+
+router.patch('/:USERNAME/reminders', async (req, res) => {
+	const username = req.params.USERNAME;
+
+	let reminders = req.body;
+
+	try {
+		await remindersPatch(username, reminders);
+		
+		sendStatus(res, 200);
 	} catch (err) {
 		sendStatus(res, 500, err);
 	}
