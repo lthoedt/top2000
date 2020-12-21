@@ -83,7 +83,13 @@ router.get('/:USERNAME/login', async (req, res) => {
 			})
 		}
 	} catch (err) {
-		sendStatus(res, 500);
+		res.status(404).json({
+			success: false,
+			message: {
+				for: 'username',
+				message: 'Gebruikersnaam/wachtwoord combinatie klopt niet.'
+			}
+		})
 	}
 })
 
