@@ -48,7 +48,7 @@ router.get('/send', async (req, res) => {
 		users.forEach( user => {
 			for ( const reminder of user.reminders ) {
 				for ( const upc of upcoming ) {
-					if (reminder == upc.aid) {
+					if (reminder.aid == upc.aid) {
 						if (toSend[upc.aid]===undefined) toSend[upc.aid] = {song: null, users: []};
 						toSend[upc.aid].song = upc;
 						toSend[upc.aid].users.push(user);
@@ -58,9 +58,11 @@ router.get('/send', async (req, res) => {
 			}
 		})
 
+		console.log(toSend);
+
 		if (toSend.length!==0) {
 			toSend.forEach(song => {
-				sendEmail(song.users, song.song);
+				// sendEmail(song.users, song.song);
 			})
 		}
 

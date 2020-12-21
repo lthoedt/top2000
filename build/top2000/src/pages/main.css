@@ -26,10 +26,12 @@
 span.title {
 	font-weight: 600;
 	font-size: 1.5rem;
+	text-align: center;
 }
 
 span.subTitle {
 	font-weight: 400;
 	font-size: 1.3rem;
-	color: var(--f7-color-pink)
+	color: var(--f7-color-pink);
+	text-align: center;
 }

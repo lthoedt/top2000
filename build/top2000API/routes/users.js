@@ -93,7 +93,7 @@ router.post('/:USERNAME/reminders', async (req, res) => {
 
 	try {
 		reminders = reminders.map(song=>{
-			return song.id;
+			return {aid: song.id};
 		})
 		const result = (await Users.updateOne({username: username}, {
 			$addToSet: {reminders: reminders}
@@ -110,17 +110,26 @@ router.delete('/:USERNAME/reminders', async (req, res) => {
 
 	let reminders = req.body;
 
-	console.log(reminders);
-
 	try {
 		reminders = reminders.map(song=>{
 			return song.id;
 		})
 
-		const result = (await Users.updateOne({username: username}, {
-			$pull: {reminders: {$in: reminders}}
-		}))
+		const user = await userGet(username);
 
+		const newReminders = user.reminders.filter( rem => {
+			for ( const toRemove of reminders) {
+				if (rem.aid===toRemove) {
+					return false;
+				}
+			}
+			return true;
+		})
+
+		const result = (await Users.updateOne({username: username}, {
+			reminders: newReminders
+		}))
+		
 		sendStatus(res, 200);
 	} catch (err) {
 		sendStatus(res, 500, err);
@@ -149,7 +158,7 @@ router.get('/:USERNAME/reminders/songs', async (req, res) => {
 
 		const songs = allSongs.filter(song => {
 			for ( const reminder of reminders ) {
-				if (reminder===song.aid) {
+				if (reminder.aid===song.aid) {
 					return true;
 				}
 			}

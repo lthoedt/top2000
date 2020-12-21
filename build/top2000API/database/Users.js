@@ -16,10 +16,15 @@ const users_schema = new Schema({
 		type: String,
 		required: true
 	},
-	reminders: {
-		type: [String],
-		default: []
-	}
+	reminders: [{
+		aid: {
+			type: String
+		},
+		reminded: {
+			type: Boolean,
+			default: false
+		}
+	}]
 })
 
 const Users = mongoose.model('Users', users_schema);
