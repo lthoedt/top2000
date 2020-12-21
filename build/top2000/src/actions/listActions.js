@@ -16,7 +16,7 @@ export const songsGet = () => {
 			let reminders = [];
 
 			try {
-				reminders = (await axios.get(`${URIs.api}users/${sessionStorage.username}/reminders/songs`)).data.data;
+				if (sessionStorage.username!==undefined) reminders = (await axios.get(`${URIs.api}users/${sessionStorage.username}/reminders/songs`)).data.data;
 			} catch (err) {
 
 			}

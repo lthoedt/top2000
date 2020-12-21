@@ -89,14 +89,14 @@ const upcomingSongs = async () => {
 		}
 	}
 
-	currentIndex = 9;
+	// currentIndex = 9;
 	
 	// return empty array if the currentsong isnt in the 2000list
 	if (currentIndex ===undefined) return upcoming;
 
 	// push the current song in at [0]
-	// then add 2 songs that are after it at [1] [2]
-	for ( let i = 0; i<3; i++ ) {
+	// then add 4 songs that are after it at [1] [2]
+	for ( let i = 0; i<5; i++ ) {
 		const nextSong = songs[currentIndex-i]
 		if (nextSong) upcoming.push(nextSong)
 		else break;
