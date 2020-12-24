@@ -16,13 +16,13 @@ expressApp.use("/api/v1/", route_rest);
 
 httpServer.on('request', expressApp);
 
-httpServer.listen();
+// httpServer.listen();
 
 // console.log(httpServer.address().port);
-// if (require.main === module) {
-// 	httpServer.listen(3001, () => {
-// 		console.log("top2000 api is running!");
-// 	})
-// }
+if (require.main === module) {
+	httpServer.listen(3001, () => {
+		console.log("top2000 api is running!");
+	})
+}
 
 module.exports = httpServer
