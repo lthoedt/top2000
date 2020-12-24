@@ -58,7 +58,7 @@ export default function List() {
 			<div className="page-content infinite-scroll-content" onScroll={LoadMoreSongs} style={{ padding: 0 }}>
 				<Navbar title={`De lijst van ${new Date().getFullYear()}`} style={{ position: 'sticky', top: 0 }}>
 					<Subnavbar inner={false}>
-						<Searchbar placeholder="Zoek op plek, naam of artiest" style={{ width: '100%' }} onInput={searchSongs} clearButton={true} disableButton={false}/>
+						<Searchbar placeholder="Zoek op plek, naam of artiest" style={{ width: '100%' }} onInput={searchSongs} clearButton={true} disableButton={false} />
 					</Subnavbar>
 				</Navbar>
 				<SongList songs={list.songs} reminders={list.reminders} />

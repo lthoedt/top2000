@@ -2,7 +2,7 @@ const axios = require('axios').default;
 const URIs = require('./URIs');
 
 const {
-	Users
+	Users, Songs
 } = require('../database/db');
 
 const sendStatus = (res, status, message) => {
@@ -42,8 +42,13 @@ const getUsers = () => {
 	});
 }
 
-const getSongs = async () => {
-	return (await axios.get(URIs.songs())).data.data[0];
+const getSongs = async props => {
+	// let search;
+	// let limit;
+	// if (props.search!==undefined) {
+	// 	search = {s: /.*search.*/i}
+	// }
+	return await Songs.find({});
 }
 
 const userGet = async (username) => {

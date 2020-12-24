@@ -1,6 +1,6 @@
 const initialLoginState = {
 	status: "unloaded",
-	loadedSongs: 10,
+	loadedSongs: 50,
 	songs: [],
 	search: "",
 	queryCount: null,
@@ -21,7 +21,7 @@ const ListReducer = ( state = initialLoginState, action ) => {
 		return { ...state, songs: action.songs, reminders: action.reminders, queryCount: action.queryCount};
 
 		case "LIST_LOAD_MORE":
-			const loadedSongs = state.loadedSongs + 10;
+			const loadedSongs = state.loadedSongs + 50;
 		return { ...state, loadedSongs: loadedSongs }
 
 		case "LIST_SEARCH":

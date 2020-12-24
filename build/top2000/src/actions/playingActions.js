@@ -14,7 +14,10 @@ export const playingSongGet = () => {
 			dispatch({
 				type: "PLAYING_LOADED",
 				song: song.data.song,
-				stream: songStream.data.stream
+				stream: (songStream.data.stream !== undefined) ? songStream.data.stream : {
+					src: "",
+					type: ""
+				}
 			});
 			dispatch({
 				type: "PLAYING_STATUS_SET",
