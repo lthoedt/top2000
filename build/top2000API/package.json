@@ -4,7 +4,8 @@
   "description": "Server viir readablereader",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "mongoService": "service mongodb start"
   },
   "author": "Sanne, Jade, Viktor, Leander",
   "license": "ISC",
@@ -14,6 +15,8 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "method-override": "^3.0.0",
+    "mongod": "^2.0.0",
+    "mongodb": "^3.6.3",
     "mongoose": "^5.10.15",
     "nodemailer": "^6.4.17"
   },

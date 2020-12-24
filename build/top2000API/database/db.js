@@ -13,6 +13,10 @@ const createDatabase = async () => {
 	await mongoose.connect(url, {
 		useNewUrlParser: true
 	})
+
+	mongoose.connection.on('error', err => {
+		console.log(err);
+	});
 }
 
 createDatabase();
