@@ -1,3 +1,5 @@
 /node_modules
-/secrets.js
-/database/config.js
+# /secrets.js
+# /database/config.js
+package-lock.json
+.env
