@@ -8,8 +8,8 @@ export const playingSongGet = () => {
 			status: "loading"
 		});
 		try {
-			const song = (await axios.get(`${URIs.api}/songs/playing`));
-			const songStream = (await axios.get(`${URIs.api}/songs/playing/stream`));
+			const song = (await axios.get(`${URIs.api}/songs/playing`, { headers: { "Access-Control-Allow-Private-Network": "true", 'Access-Control-Allow-Origin': '*', } }));
+			const songStream = (await axios.get(`${URIs.api}/songs/playing/stream`, { headers: { "Access-Control-Allow-Private-Network": "true", 'Access-Control-Allow-Origin': '*', } }));
 
 			dispatch({
 				type: "PLAYING_LOADED",

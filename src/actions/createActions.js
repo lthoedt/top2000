@@ -21,7 +21,7 @@ export const createAction = () => {
 		const passwordHash = bcrypt.hashSync(password, salt);
 
 		try {
-			const response = (await axios.post(`${URIs.api}/users?username=${username}&email=${email}&password=${passwordHash}`)).data;
+			const response = (await axios.post(`${URIs.api}/users?username=${username}&email=${email}&password=${passwordHash}`, { headers: { "Access-Control-Allow-Private-Network": "true", 'Access-Control-Allow-Origin': '*', } })).data;
 			if (response.success) {
 				dispatch({type: "CREATE_SUCCESSFUL"})
 				dispatch({type: "CREATE_MESSAGE_SET", message: {for: '', message: ''}});

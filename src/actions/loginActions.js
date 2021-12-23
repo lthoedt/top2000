@@ -12,7 +12,7 @@ export const loginAction = () => {
 		const {password} = state;
 
 		try {
-			const response = (await axios.get(`${URIs.api}users/${username}/login?password=${password}`)).data;
+			const response = (await axios.get(`${URIs.api}/users/${username}/login?password=${password}`, { headers: { "Access-Control-Allow-Private-Network": "true", 'Access-Control-Allow-Origin': '*', } })).data;
 			if (response.success) {
 				dispatch({type: "LOGIN_SUCCESSFUL", data: response.data})
 				dispatch({type: "LOGIN_MESSAGE_SET", message: {for: '', message: ''}});
