@@ -11,9 +11,11 @@ export default function SongListItem(props) {
     const song = props.song;
 
     const currentlyPlaying = useSelector(state => state.list.currentlyPlaying);
+    const currentSongOnAir = useSelector(state => state.playing.song);
+
     const dispatch = useDispatch();
 
-    const thisSongIsPlaying = currentlyPlaying === song.trackPreviewUrl;
+    const thisSongIsPlaying = currentlyPlaying === song.trackPreviewUrl || (currentSongOnAir.artist === song.artist && currentSongOnAir.title === song.title);
 
     const audio = useSelector(state => state.list.audio);
 
