@@ -18,6 +18,8 @@ import 'framework7/css/framework7.bundle.min.css';
 import 'framework7-icons/css/framework7-icons.css';
 
 import './pages/main.css';
+require('dotenv').config()
+
 // Init F7-React Plugin
 Framework7.use(Framework7React);
 
