@@ -14,12 +14,12 @@ export default function SongList(props) {
 	const songComponents = props.songs.map(song => {
 		let isReminder = false;
 		for (const reminder of props.reminders) {
-			if (reminder.aid===song.aid) {
+			if (reminder.id===song.id) {
 				isReminder=true;
 				break;
 			}
 		}
-		return <SongListItem key={song.aid} song={song} reminder={isReminder} />;
+		return <SongListItem key={song.id} song={song} reminder={isReminder} />;
 	})
 
 	return (

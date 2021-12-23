@@ -29,10 +29,10 @@ export default function Playing() {
 	return (
 		<div className="page" data-page="Playing">
 			<div className="page-content" style={{ padding: 0 }}>
-				<div style={{ height: '100%', width: '100%', backgroundImage: `url(${state.song.image})`, backgroundPosition: 'center', position: 'fixed', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', filter: 'blur(50px)', zIndex: '-9' }}><div style={{ width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)' }}></div></div>
+				<div style={{ height: '100%', width: '100%', backgroundImage: `url(${state.song.cover_url})`, backgroundPosition: 'center', position: 'fixed', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', filter: 'blur(50px)', zIndex: '-9' }}><div style={{ width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)' }}></div></div>
 
 				<BlockTitle>Wat speelt er nu?</BlockTitle>
-				<Cover src={state.song.image} />
+				<Cover src={state.song.cover_url} />
 				<div style={{ textAlign: 'center' }}>
 					<ReactAudioPlayer
 						src="https://icecast.omroep.nl/radio2-bb-mp3"
