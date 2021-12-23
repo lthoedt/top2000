@@ -43,7 +43,7 @@ const getUsers = () => {
 }
 
 const getSongs = async () => {
-	return (await axios.get(URIs.songs())).data.data[0];
+	return (await axios.get(URIs.songs())).data.positions;
 }
 
 const userGet = async (username) => {
