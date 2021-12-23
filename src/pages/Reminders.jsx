@@ -24,9 +24,7 @@ export default function Reminders() {
 					<div className="page-content" style={{ padding: 0 }}>
 						<Navbar style={{ position: 'sticky', top: 0 }} title="Jouw reminders" />
 
-						<BlockTitle>Liedjes</BlockTitle>
 						<SongList songs={state.songs} reminders={state.songs} />
-
 					</div>
 					:
 					<div className="page-content" style={{ padding: 0 }}>

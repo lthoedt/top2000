@@ -52,7 +52,7 @@ export default function SongListItem(props) {
                         <Icon slot="media" f7="person_alt"></Icon>
                     </Chip>
                     :
-                    (props.reminder === true)
+                    (props.reminder)
                         ?
                         <Chip text="Reminder" color="blue" onClick={() => dispatch(remindersRemove(song.id))} outline deleteable>
                             <Icon slot="media" f7="checkmark_alt"></Icon>
