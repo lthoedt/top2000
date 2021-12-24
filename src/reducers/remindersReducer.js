@@ -1,6 +1,7 @@
 const initialLoginState = {
 	status: "unloaded",
-	songs: []
+	songs: [],
+    updating: undefined
 }
 
 const RemindersReducer = ( state = initialLoginState, action ) => {
@@ -10,6 +11,9 @@ const RemindersReducer = ( state = initialLoginState, action ) => {
     switch(action.type) {
         case "REMINDERS_STATUS_SET":
 		return { ...state, status: action.status };
+
+        case "REMINDERS_UPDATING_SET":
+		return { ...state, updating: action.updating };
 
 		case "REMINDERS_LOADED":
 		return { ...state, songs: action.songs }

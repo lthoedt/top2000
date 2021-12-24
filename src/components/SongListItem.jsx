@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Icon, ListItem, Chip } from 'framework7-react';
+import { Icon, ListItem, Chip, Preloader } from 'framework7-react';
 import SongPos from './SongPos';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,8 +10,14 @@ import { remindersAdd, remindersRemove } from '../actions/remindersActions';
 export default function SongListItem(props) {
     const song = props.song;
 
-    const currentlyPlaying = useSelector(state => state.list.currentlyPlaying);
+    const listState = useSelector(state => state.list);
+
+    const currentlyPlaying = listState.currentlyPlaying;
+
     const currentSongOnAir = useSelector(state => state.playing.song);
+
+    const reminderState = useSelector(state => state.reminders);
+
 
     const dispatch = useDispatch();
 
@@ -19,7 +25,11 @@ export default function SongListItem(props) {
 
     const audio = useSelector(state => state.list.audio);
 
+    const previewAvailable = !(song.trackPreviewUrl === undefined || song.trackPreviewUrl === "" || song.trackPreviewUrl === null);
+
     const toggleSong = (url) => {
+        if (!previewAvailable) return;
+
         if (audio === null || audio.src !== url) dispatch({ type: "SONG_AUDIO_SET", audio: new Audio(url) });
         dispatch({ type: "SONG_CURRENTLYPLAYING", currentlyPlaying: (currentlyPlaying === url) ? null : url })
 
@@ -41,9 +51,15 @@ export default function SongListItem(props) {
                 <SongPos slot="media" pos={song.position} prv={song.lastPosition} />
                 <div slot="media" onClick={() => toggleSong(song.trackPreviewUrl)}>
                     <img src={song.imageUrl} alt={`cover van ${song.title}`} width="80" />
-                    {(thisSongIsPlaying)
-                        ? <Icon f7="pause_circle" style={{ width: "80px", height: "80px", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "3em", position: "absolute", transform: "translateY(-50%)", top: "50%" }}></Icon>
-                        : <Icon f7="play_circle" style={{ width: "80px", height: "80px", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "3em", position: "absolute", transform: "translateY(-50%)", top: "50%" }}></Icon>
+                    {
+                        (previewAvailable)
+                            ?
+                            (
+                                (thisSongIsPlaying)
+                                    ? <Icon f7="pause_circle" style={{ width: "80px", height: "80px", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "3em", position: "absolute", transform: "translateY(-50%)", top: "50%" }}></Icon>
+                                    : <Icon f7="play_circle" style={{ width: "80px", height: "80px", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "3em", position: "absolute", transform: "translateY(-50%)", top: "50%" }}></Icon>
+                            )
+                            : null
                     }
                 </div>
                 {(sessionStorage.username === undefined)
@@ -51,6 +67,10 @@ export default function SongListItem(props) {
                     <Chip text="Reminder" color="orange" onClick={() => window.location.href = "/login"} outline>
                         <Icon slot="media" f7="person_alt"></Icon>
                     </Chip>
+                    : // TODO: small bug: if the page sis loading it will also display a loader
+                    (listState.status !== "loaded" && reminderState.updating === song.id)
+                    ? 
+                    <Preloader></Preloader>
                     :
                     (props.reminder)
                         ?

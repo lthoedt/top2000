@@ -39,6 +39,10 @@ export const remindersAdd = (reminder) => {
             type: "REMINDERS_STATUS_SET",
             status: "loading"
         })
+        dispatch({
+            type: "REMINDERS_UPDATING_SET",
+            updating: reminder
+        })
 
         try {
             await axios({
@@ -75,6 +79,10 @@ export const remindersRemove = (reminder) => {
         dispatch({
             type: "REMINDERS_STATUS_SET",
             status: "loading"
+        })
+        dispatch({
+            type: "REMINDERS_UPDATING_SET",
+            updating: reminder
         })
 
         try {
