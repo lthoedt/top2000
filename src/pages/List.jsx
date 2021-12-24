@@ -22,7 +22,7 @@ export default function List() {
 
 	const LoadMoreSongs = (e) => {
 		const node = e.target; // gets the html element
-		const treshhold = 100;
+		const treshhold = 200;
 		const isBottom = node.scrollTop + node.offsetHeight >= node.scrollHeight - treshhold;
 
 		if (isBottom && list.loadedSongs <= list.queryCount) {

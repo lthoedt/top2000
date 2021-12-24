@@ -1,6 +1,8 @@
+const loadStep = 25;
+
 const initialLoginState = {
 	status: "unloaded",
-	loadedSongs: 10,
+	loadedSongs: loadStep,
 	songs: [],
 	search: "",
 	queryCount: null,
@@ -10,9 +12,6 @@ const initialLoginState = {
 }
 
 const ListReducer = ( state = initialLoginState, action ) => {
-    // Note how all branches of the switch-statement always return
-    // (a new version of) the state. Reducers must always return a (new) state.
-
     switch(action.type) {
         case "LIST_STATUS_SET":
 		return { ...state, status: action.status };
@@ -21,7 +20,7 @@ const ListReducer = ( state = initialLoginState, action ) => {
 		return { ...state, songs: action.songs, reminders: action.reminders, queryCount: action.queryCount};
 
 		case "LIST_LOAD_MORE":
-			const loadedSongs = state.loadedSongs + 10;
+			const loadedSongs = state.loadedSongs + loadStep;
 		return { ...state, loadedSongs: loadedSongs }
 
 		case "LIST_SEARCH":
