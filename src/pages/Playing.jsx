@@ -32,7 +32,7 @@ export default function Playing() {
 				<div style={{ height: '100%', width: '100%', backgroundImage: `url(${state.song.cover_url})`, backgroundPosition: 'center', position: 'fixed', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', filter: 'blur(50px)', zIndex: '-9' }}><div style={{ width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)' }}></div></div>
 
 				<BlockTitle>Wat speelt er nu?</BlockTitle>
-				<Cover src={state.song.cover_url} />
+				<Cover src={state.song.imageUrl} />
 				<div style={{ textAlign: 'center' }}>
 					<ReactAudioPlayer
 						src="https://icecast.omroep.nl/radio2-bb-mp3"
