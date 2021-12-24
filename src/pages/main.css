@@ -1,37 +1,47 @@
 .media-item.active {
-	background: rgb(63, 94, 251);
-	background: radial-gradient(circle at left top, rgba(63, 94, 251, 0.8) 0%, rgba(203, 103, 123, 1) 100%);
-	background-size: 400% 400%;
-	animation: gradient 5s ease infinite;
+    background: rgb(63, 94, 251);
+    background: radial-gradient(circle at left top, rgba(63, 94, 251, 0.8) 0%, rgba(203, 103, 123, 1) 100%);
+    background-size: 400% 400%;
+    animation: gradient 5s ease infinite;
 }
 
 @keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .centerContent {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 span.title {
-	font-weight: 600;
-	font-size: 1.5rem;
-	text-align: center;
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-align: center;
 }
 
 span.subTitle {
-	font-weight: 400;
-	font-size: 1.3rem;
-	color: var(--f7-color-pink);
-	text-align: center;
+    font-weight: 400;
+    font-size: 1.3rem;
+    color: var(--f7-color-pink);
+    text-align: center;
+}
+
+.songs.list .item-content {
+    padding: 0;
+}
+
+.songs.list .item-media div:first-child {
+    padding: 0 calc(var(--f7-list-item-padding-horizontal) + var(--f7-safe-area-left));
 }

@@ -23,7 +23,7 @@ export default function SongList(props) {
 	})
 
 	return (
-		<List mediaList>
+		<List className='songs' mediaList>
 			{songComponents}
 			{(loading === "loading" &&
 				<div style={{ textAlign: "center", marginTop: "3vh" }}>
