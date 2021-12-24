@@ -36,7 +36,7 @@ export default function SongListItem(props) {
                 after={song.yr}
                 className={(thisSongIsPlaying) ? "active" : ""}
                 style={{ transitionDuration: "200ms" }}
-            // external
+                key={song.id}
             >
                 <SongPos slot="media" pos={song.position} prv={song.lastPosition} />
                 <div slot="media" onClick={() => toggleSong(song.trackPreviewUrl)}>

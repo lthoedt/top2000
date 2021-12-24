@@ -10,20 +10,7 @@ export default function Home() {
 			<Toolbar tabbar labels bottom>
 				<Tabbar />
 			</Toolbar>
-			{/* <Tabs swipeable>
-				<Tab id="tab-1" className="page-content" tabActive>
-					<List />
-				</Tab>
-				<Tab id="tab-2" className="page-content">
-					<Playingpage />
-				</Tab>
-				<Tab id="tab-3" className="page-content">
-					<Reminders />
-				</Tab>
-				<Tab id="tab-4" className="page-content">
-					<Create />
-				</Tab>
-			</Tabs> */}
+            
 			<Tabs swipeable routable>
 				<Tab id="tab-1" className="page-content tab">
 					{/* <List /> */}
