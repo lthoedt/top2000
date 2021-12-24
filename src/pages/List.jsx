@@ -26,7 +26,7 @@ export default function List() {
     }
 
     const LoadMoreSongs = (e) => {
-        if (list.status !== "loaded") return;
+        if (list.status !== "loaded" || list.search != "") return;
 
         const node = e.target; // gets the html element
         const treshhold = 250;
