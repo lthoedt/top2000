@@ -12,7 +12,7 @@ export default function Home() {
 			</Toolbar>
             
 			<Tabs swipeable routable>
-				<Tab id="tab-1" className="page-content tab">
+				<Tab id="tab-1" className="page-content tab" tabActive>
 					{/* <List /> */}
 				</Tab>
 				<Tab id="tab-2" className="page-content tab">
