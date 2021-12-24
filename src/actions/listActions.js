@@ -8,10 +8,16 @@ export const songsGet = () => {
             status: "loading"
         });
 
-        const state = getState();
+        const state = getState().list;
 
         try {
-            const songs = (await axios.get(`${URIs.api}/songs?limit=${state.list.loadedSongs}&search=${state.list.search}`, { headers: { "Access-Control-Allow-Private-Network": "true", 'Access-Control-Allow-Origin': '*', } }));
+            let min,max;
+
+            min = max = state.loadIndex * state.loadStep;
+            // *2 makes sure that there ar 2 lists stacked so you never see a blank screen
+            max += state.loadStep*2;
+
+            const songs = (await axios.get(`${URIs.api}/songs?min=${min}&max=${max}&search=${state.search}`, { headers: { "Access-Control-Allow-Private-Network": "true", 'Access-Control-Allow-Origin': '*', } }));
 
             let reminders = [];
 
