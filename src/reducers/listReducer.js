@@ -9,7 +9,8 @@ const initialLoginState = {
     queryCount: null,
     currentlyPlaying: null,
     audio: null,
-    searchTimer: undefined
+    searchTimer: undefined,
+    goToLive: false
 }
 
 const ListReducer = (state = initialLoginState, action) => {
@@ -45,6 +46,18 @@ const ListReducer = (state = initialLoginState, action) => {
 
         case "LIST_SEARCH_TIMER_SET":
             return { ...state, searchTimer: action.searchTimer }
+
+        case "LIST_GOTO_PLAYING":
+            const position = action.position;
+
+            // const position = 101
+
+            if (position === undefined || position === null) return state;
+
+            return { ...state, loadIndex: Math.floor(position/loadStep), goToLive: true, status: "unloaded"}
+
+        case "LIST_GOTO_PLAYING_RESET":
+            return { ...state, goToLive: false}
 
         default:
             return state;

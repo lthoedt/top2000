@@ -10,20 +10,16 @@ import { remindersAdd, remindersRemove } from '../actions/remindersActions';
 export default function SongListItem(props) {
     const song = props.song;
 
+    const dispatch = useDispatch();
+
     const listState = useSelector(state => state.list);
+    const currentSongOnAir = useSelector(state => state.playing.song);
+    const reminderState = useSelector(state => state.reminders);
+    const audio = useSelector(state => state.list.audio);
 
     const currentlyPlaying = listState.currentlyPlaying;
 
-    const currentSongOnAir = useSelector(state => state.playing.song);
-
-    const reminderState = useSelector(state => state.reminders);
-
-
-    const dispatch = useDispatch();
-
     const thisSongIsPlaying = currentlyPlaying === song.trackPreviewUrl || (currentSongOnAir.artist === song.artist && currentSongOnAir.title === song.title);
-
-    const audio = useSelector(state => state.list.audio);
 
     const previewAvailable = !(song.trackPreviewUrl === undefined || song.trackPreviewUrl === "" || song.trackPreviewUrl === null);
 
@@ -47,6 +43,7 @@ export default function SongListItem(props) {
                 className={(thisSongIsPlaying) ? "active" : ""}
                 style={{ transitionDuration: "200ms" }}
                 key={song.id}
+                id={song.position}
             >
                 <SongPos slot="media" pos={song.position} prv={song.lastPosition} />
                 <div slot="media" onClick={() => toggleSong(song.trackPreviewUrl)}>
@@ -69,18 +66,18 @@ export default function SongListItem(props) {
                     </Chip>
                     : // TODO: small bug: if the page sis loading it will also display a loader
                     (listState.status !== "loaded" && reminderState.updating === song.id)
-                    ? 
-                    <Preloader></Preloader>
-                    :
-                    (props.reminder)
                         ?
-                        <Chip text="Reminder" color="blue" onClick={() => dispatch(remindersRemove(song.id))} outline deleteable>
-                            <Icon slot="media" f7="checkmark_alt"></Icon>
-                        </Chip>
+                        <Preloader></Preloader>
                         :
-                        <Chip text="Reminder" color="green" onClick={() => dispatch(remindersAdd(song.id))} outline>
-                            <Icon slot="media" f7="plus"></Icon>
-                        </Chip>
+                        (props.reminder)
+                            ?
+                            <Chip text="Reminder" color="blue" onClick={() => dispatch(remindersRemove(song.id))} outline deleteable>
+                                <Icon slot="media" f7="checkmark_alt"></Icon>
+                            </Chip>
+                            :
+                            <Chip text="Reminder" color="green" onClick={() => dispatch(remindersAdd(song.id))} outline>
+                                <Icon slot="media" f7="plus"></Icon>
+                            </Chip>
                 }
             </ListItem>
         </ul>

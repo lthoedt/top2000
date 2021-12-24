@@ -8,8 +8,10 @@ import { useSelector } from 'react-redux';
 
 export default function SongList(props) {
 
-	const loading = useSelector(state => state.list.status);
-	const queryCount = useSelector(state => state.list.queryCount);
+    const listState = useSelector(state => state.list);
+
+	const loading = listState.status;
+	const queryCount = listState.queryCount;
 
 	const songComponents = props.songs.map(song => {
 		let isReminder = false;
