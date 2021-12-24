@@ -24,6 +24,13 @@ export default function List() {
     const loadSongs = songsGet();
 
     if (playingState.status === "unloaded") dispatch(playingSongGet());
+    if (playingState.refreshed === false) {
+		setTimeout(() => {
+			dispatch(playingSongGet());
+			dispatch({ type: "PLAYING_REFRESHED_SET", refreshed: false })
+		}, 10000);
+		dispatch({ type: "PLAYING_REFRESHED_SET", refreshed: true })
+	}
 
     if (list.status === "unloaded") dispatch(loadSongs);
 
