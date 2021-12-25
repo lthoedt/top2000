@@ -1,7 +1,7 @@
 const axios = require('axios').default;
 const URIs = require('../URIs');
 
-export const loginAction = () => {
+export const loginAction = (router) => {
 	return async (dispatch, getState) => {
 
 		dispatch({type: "LOGIN_STATUS_SET", status: "loading"})
@@ -16,6 +16,7 @@ export const loginAction = () => {
 			if (response.success) {
 				dispatch({type: "LOGIN_SUCCESSFUL", data: response.data})
 				dispatch({type: "LOGIN_MESSAGE_SET", message: {for: '', message: ''}});
+                router.navigate('/reminders');
 			} else {
 				dispatch({type: "LOGIN_MESSAGE_SET", message: response.message});
 			}

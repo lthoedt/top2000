@@ -7,7 +7,7 @@ import { Page, LoginScreenTitle, List, ListInput, BlockFooter, Link, ListItem } 
 import { loginAction } from '../actions/loginActions';
 import PreloaderModal from '../components/Preloader';
 
-export default function Create() {
+export default function Create({f7router}) {
 
 	const dispatch = useDispatch();
 
@@ -43,7 +43,7 @@ export default function Create() {
 						</List>
 						<List>
 							<ListItem>
-								<Link onClick={() => dispatch(loginAction())} type="submit">Log In</Link>
+								<Link onClick={() => dispatch(loginAction(f7router))} type="submit">Log In</Link>
 							|
 							<Link href="/create">Of maak een account aan.</Link>
 							</ListItem>

@@ -29,7 +29,6 @@ const LoginReducer = ( state = initialLoginState, action ) => {
 			sessionStorage.username = action.data.username;
 			sessionStorage.reminders = action.data.reminders;
 
-			window.location.href = '/reminders'
 		return { ...state, username: "", password: ""}
 
         default:
