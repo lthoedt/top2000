@@ -79,7 +79,7 @@ export default function List() {
         dispatch({ type: "LIST_SEARCH", search: search });
 
         // ga pas zoeken na 500ms geen input
-        if (list.searchTimer === undefined) {
+        // if (list.searchTimer === undefined) {
             clearTimeout(list.searchTimer);
             dispatch({
                 type: "LIST_SEARCH_TIMER_SET", searchTimer: setTimeout(
@@ -87,10 +87,10 @@ export default function List() {
                         dispatch({ type: "LIST_STATUS_SET", status: "unloaded" });
                         dispatch({ type: "LIST_SEARCH_TIMER_SET", searchTimer: undefined })
                     },
-                    500
+                    600
                 )
             })
-        }
+        // }
     }
 
     function scrollToLive() {
