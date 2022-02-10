@@ -45,3 +45,7 @@ span.subTitle {
 .songs.list .item-media div:first-child {
     padding: 0 calc(var(--f7-list-item-padding-horizontal) + var(--f7-safe-area-left));
 }
+
+.page-content {
+    overflow-y: scroll;
+}

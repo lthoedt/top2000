@@ -40,7 +40,7 @@ export default function List() {
         if (list.status !== "loaded" || list.search !== "") return;
 
         const node = e.target; // gets the html element
-        const treshhold = 250;
+        const treshhold = node.scrollHeight/3;
         const isBottom = node.scrollTop + node.offsetHeight >= node.scrollHeight - treshhold;
         const isTop = node.scrollTop <= treshhold;
 
